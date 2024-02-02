@@ -1,7 +1,13 @@
+import Proptypes from 'prop-types';
 function Card(props) {
-  return <></>;
+  return (
+    <>
+      <img src={props.cardName} alt="" />,{props.isClicked}
+    </>
+  );
 }
 Card.propTypes = {
-  cardName: String,
+  cardName: Proptypes.string,
+  isClicked: Proptypes.bool,
 };
 export default Card;
