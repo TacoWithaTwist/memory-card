@@ -28,42 +28,34 @@ function App() {
 
   function shuffleCards(arr) {
     const newArr = [...arr]; // Create a new array to avoid modifying the original state directly
-
     for (let i = newArr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
     }
-
     return newArr;
   }
 
-  function handleScore(e) {
+  function handleScore(index) {
     if (cardArr) {
-      let tmp = [cardArr];
-      const clickedCardIndex = tmp.findIndex(
-        (card) => card[0] === e.target.src
-      );
-      console.log("clickedCardIndex:", clickedCardIndex);
-      if (tmp[clickedCardIndex][1]) {
-        // If already clicked, reset the game
-        setCardArr(shuffleCards(tmp));
-        setScore(0);
-        if (score > topScore) {
-          setTopScore(score);
-        }
-      } else {
-        // If not clicked, update the state
+      let tmp = [...cardArr];
+      const clickedCardIndex = index;
+      if (clickedCardIndex !== -1 && tmp[clickedCardIndex][1]) {
+        resetGame();
+      } else if (clickedCardIndex !== -1) {
         tmp[clickedCardIndex][1] = true;
         setCardArr(shuffleCards(tmp));
         setScore((prev) => prev + 1);
+        if (score > topScore) {
+          setTopScore(score);
+        }
       }
     }
   }
 
-  function resetCards() {
-    // Create a new array with reset isClicked properties
+  function resetGame() {
     const resetArr = cardArr.map((card) => [card[0], false]);
     setCardArr(shuffleCards(resetArr));
+    setTopScore(0);
     setScore(0);
   }
 
@@ -81,8 +73,9 @@ function App() {
             cardName={card[0]}
             isClicked={card[1]}
             onClick={handleScore}
+            index={index}
             style={{
-              outerWidth: "200px",
+              innerWidth: "200px",
               outerHeight: "auto",
               cursor: "pointer",
               border: "1px solid black",

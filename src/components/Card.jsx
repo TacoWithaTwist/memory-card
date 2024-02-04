@@ -1,18 +1,21 @@
-import Proptypes from "prop-types";
-import "./Card.css";
-function Card(props) {
+import React from "react";
+import PropTypes from "prop-types";
+
+function Card({ cardName, isClicked, onClick, index, style }) {
   return (
-    <>
-      <div onClick={props.onClick} style={props.style}>
-        <img src={`${props.cardName}`} alt="" />
-      </div>
-    </>
+    <div onClick={() => onClick(index)} style={style}>
+      <img src={cardName} alt="" />
+      <span> </span>
+    </div>
   );
 }
+
 Card.propTypes = {
-  cardName: Proptypes.string,
-  isClicked: Proptypes.bool,
-  onClick: Proptypes.func,
-  style: Proptypes.object,
+  cardName: PropTypes.string.isRequired,
+  isClicked: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+  style: PropTypes.object.isRequired,
 };
+
 export default Card;
