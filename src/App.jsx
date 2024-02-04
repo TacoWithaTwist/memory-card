@@ -75,8 +75,8 @@ function App() {
             onClick={handleScore}
             index={index}
             style={{
-              innerWidth: "200px",
-              outerHeight: "auto",
+              width: "50%",
+              height: "auto",
               cursor: "pointer",
               border: "1px solid black",
               padding: "10px",
