@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import spritesheet from '../assets/CuteCards - asset pack/CuteCards.png';
+import { WaitingStateContext } from '../context/WaitingStateProvider';
 export default function Card({
   spriteSheet,
   spriteWidth,
@@ -10,6 +11,7 @@ export default function Card({
   frameIndex,
   onClick,
 }) {
+  const { waitingState } = useContext(WaitingStateContext);
   const canvasRef = useRef(null);
   const animationId = useRef(null);
   useEffect(() => {
@@ -20,7 +22,9 @@ export default function Card({
     const frameDuration = 1000 / frameRate;
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const spriteX = (frameIndex % totalFrames) * spriteWidth;
+      const spriteX = waitingState
+        ? (14 % totalFrames) * spriteWidth
+        : (frameIndex % totalFrames) * spriteWidth;
       const spriteY = 0;
       ctx.drawImage(
         sprite,
@@ -44,7 +48,15 @@ export default function Card({
       clearTimeout(animationId.current);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     };
-  }, [spriteSheet, spriteWidth, spriteHeight, totalFrames, frameRate]);
+  }, [
+    spriteSheet,
+    spriteWidth,
+    spriteHeight,
+    totalFrames,
+    frameRate,
+    frameIndex,
+    waitingState,
+  ]);
   return (
     <>
       <motion.canvas
@@ -54,7 +66,7 @@ export default function Card({
         whileTap={{ scale: 1 }}
         exit={{ scale: 0 }}
         ref={canvasRef}
-        onClick={(frameIndex) => onClick(frameIndex)}
+        onClick={() => onClick(frameIndex)}
         width={spriteWidth}
         height={spriteHeight}
       ></motion.canvas>

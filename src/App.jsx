@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Card from './components/Card';
+import { WaitingStateContext } from './context/WaitingStateProvider';
 
 function App() {
   const [score, setScore] = useState(0);
   const [topScore, setTopScore] = useState(0);
-  const [waitingState, setWaitingState] = useState(false);
+  const { waitingState, setWaitingState } = useContext(WaitingStateContext);
   const [cardArr, setCardArr] = useState(() => {
     return Array.from({ length: 10 }).map((_, index) => ({
       id: index,
@@ -12,7 +13,7 @@ function App() {
       spriteSheet: '/assets/CuteCards - asset pack/CuteCards.png',
       spriteWidth: 100,
       spriteHeight: 144,
-      totalFrames: 10,
+      totalFrames: 15,
       frameRate: 10,
       frameIndex: index,
     }));
@@ -79,6 +80,7 @@ function App() {
                 totalFrames,
                 frameRate,
                 frameIndex,
+                waitingState,
               },
               index
             ) => (
@@ -92,8 +94,9 @@ function App() {
                 spriteHeight={spriteHeight}
                 totalFrames={totalFrames}
                 frameRate={frameRate}
-                frameIndex={waitingState ? 15 : frameIndex}
+                frameIndex={frameIndex}
                 flipped={flipped}
+                waitingState={waitingState}
               />
             )
           )}

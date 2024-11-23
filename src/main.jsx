@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { WaitingStateProvider } from './context/WaitingStateProvider.jsx';
 import App from './App.jsx';
 import './index.css';
-import Canvas from './components/Card.jsx';
+const value = false;
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <WaitingStateProvider>
+      <App />
+    </WaitingStateProvider>
   </React.StrictMode>
 );
