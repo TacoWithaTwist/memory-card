@@ -25,8 +25,13 @@
   color: #888;
 }
 .cardsContainer {
+  width: 90%;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
-Card {
-  flex: auto;
+.game {
+  display: flex;
+  justify-content: center;
 }
