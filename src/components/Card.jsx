@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import spritesheet from '../assets/CuteCards - asset pack/CuteCards.png';
-export default function Canvas({
+export default function Card({
   spriteSheet,
   spriteWidth,
   spriteHeight,
@@ -48,10 +48,10 @@ export default function Canvas({
   return (
     <>
       <motion.canvas
-        initial={{ scale: 0 }}
+        initial={{ scale: 1 }}
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
+        whileTap={{ scale: 1 }}
         exit={{ scale: 0 }}
         ref={canvasRef}
         onClick={(frameIndex) => onClick(frameIndex)}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
 import Card from './components/Card';
 
 function App() {
   const [score, setScore] = useState(0);
   const [topScore, setTopScore] = useState(0);
+  const [waitingState, setWaitingState] = useState(false);
   const [cardArr, setCardArr] = useState(() => {
     return Array.from({ length: 10 }).map((_, index) => ({
       id: index,
@@ -59,6 +59,13 @@ function App() {
         Best Score: {topScore} <br />
         Current Score: {score}
       </div>
+      <button
+        onClick={() => {
+          setWaitingState(!waitingState);
+        }}
+      >
+        Start!
+      </button>
       <div className="game">
         <div className="cardsContainer">
           {cardArr.map(
@@ -76,19 +83,16 @@ function App() {
               index
             ) => (
               <Card
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                exit={{ scale: 0 }}
                 key={id}
-                onClick={() => handleScore(index)}
+                onClick={() => {
+                  handleScore(index);
+                }}
                 spriteSheet={spriteSheet}
                 spriteWidth={spriteWidth}
                 spriteHeight={spriteHeight}
                 totalFrames={totalFrames}
                 frameRate={frameRate}
-                frameIndex={frameIndex}
+                frameIndex={waitingState ? 15 : frameIndex}
                 flipped={flipped}
               />
             )
