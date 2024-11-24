@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Card from './components/Card';
 import { WaitingStateContext } from './context/WaitingStateProvider';
-
+import './App.css';
 function App() {
   const [score, setScore] = useState(0);
   const [topScore, setTopScore] = useState(0);
@@ -71,7 +71,7 @@ function App() {
           resetGame();
         }}
       >
-        Start!
+        Reset!
       </button>
       <div className="game">
         <div className="cardsContainer">

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
+import './Card.css';
 import spritesheet from '../assets/CuteCards - asset pack/CuteCards.png';
 import { WaitingStateContext } from '../context/WaitingStateProvider';
 export default function Card({

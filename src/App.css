@@ -25,7 +25,7 @@
   color: #888;
 }
 .cardsContainer {
-  width: 90%;
+  width: 50%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
