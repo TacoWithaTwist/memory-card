@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import spritesheet from '../assets/CuteCards - asset pack/CuteCards.png';
 import { WaitingStateContext } from '../context/WaitingStateProvider';
@@ -14,6 +14,7 @@ export default function Card({
   const { waitingState } = useContext(WaitingStateContext);
   const canvasRef = useRef(null);
   const animationId = useRef(null);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -57,15 +58,16 @@ export default function Card({
     frameIndex,
     waitingState,
   ]);
+
   return (
     <>
       <motion.canvas
-        initial={{ scale: 1 }}
         animate={{ scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 1 }}
-        exit={{ scale: 0 }}
+        whileTap={{ scale: 0.95 }}
         ref={canvasRef}
+        style={{
+          pointerEvents: !waitingState ? 'auto' : 'none',
+        }}
         onClick={() => onClick(frameIndex)}
         width={spriteWidth}
         height={spriteHeight}

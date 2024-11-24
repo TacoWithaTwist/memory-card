@@ -5,7 +5,7 @@ import { WaitingStateContext } from './context/WaitingStateProvider';
 function App() {
   const [score, setScore] = useState(0);
   const [topScore, setTopScore] = useState(0);
-  const { waitingState, setWaitingState } = useContext(WaitingStateContext);
+  const { setWaitingState } = useContext(WaitingStateContext);
   const [cardArr, setCardArr] = useState(() => {
     return Array.from({ length: 10 }).map((_, index) => ({
       id: index,
@@ -35,16 +35,22 @@ function App() {
     if (clickedCard.flipped) {
       resetGame();
     } else {
-      tmp[index].flipped = true;
-      setCardArr(shuffleCards(tmp));
-      setScore((prev) => prev + 1);
+      setWaitingState((prev) => !prev);
+      setTimeout(() => {
+        tmp[index].flipped = true;
+        setCardArr(shuffleCards(tmp));
+        setScore((prev) => prev + 1);
+        setWaitingState((prev) => !prev);
+      }, 1000);
     }
   }
 
   function resetGame() {
-    const resetArr = cardArr.map((card) => ({ ...card, flipped: false }));
-    setCardArr(shuffleCards(resetArr));
-    setScore(0);
+    setTimeout(() => {
+      const resetArr = cardArr.map((card) => ({ ...card, flipped: false }));
+      setCardArr(shuffleCards(resetArr));
+      setScore(0);
+    }, 1000);
   }
 
   useEffect(() => {
@@ -62,7 +68,7 @@ function App() {
       </div>
       <button
         onClick={() => {
-          setWaitingState(!waitingState);
+          resetGame();
         }}
       >
         Start!
