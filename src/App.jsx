@@ -5,6 +5,7 @@ import './App.css';
 function App() {
   const [score, setScore] = useState(0);
   const [topScore, setTopScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
   const { setWaitingState } = useContext(WaitingStateContext);
   const [cardArr, setCardArr] = useState(() => {
     return Array.from({ length: 10 }).map((_, index) => ({
@@ -35,6 +36,9 @@ function App() {
     if (clickedCard.flipped) {
       resetGame();
     } else {
+      setGameOver(() => {
+        false;
+      });
       setWaitingState((prev) => !prev);
       setTimeout(() => {
         tmp[index].flipped = true;
@@ -51,6 +55,7 @@ function App() {
       setCardArr(shuffleCards(resetArr));
       setScore(0);
     }, 1000);
+    setGameOver(true);
   }
 
   useEffect(() => {
@@ -63,6 +68,8 @@ function App() {
     <>
       <h1>Welcome to a Memory Card Game!</h1>
       <div className="score">
+        {gameOver ? 'Game is Over. You Lose!' : ''}
+        <br />
         Best Score: {topScore} <br />
         Current Score: {score}
       </div>
