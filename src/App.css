@@ -3,6 +3,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logo {
@@ -25,7 +28,7 @@
   color: #888;
 }
 .cardsContainer {
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -35,4 +38,26 @@
 .game {
   display: flex;
   justify-content: center;
+}
+.rules {
+  padding: 8px;
+  background-color: rgb(20, 18, 18);
+  border-radius: 15px;
+  position: fixed;
+  left: 5px;
+  width: 150px;
+}
+
+.rules > span {
+  color: rgba(240, 224, 224, 0.9);
+}
+/* 
+.rules>span>h3{
+  color: ;
+} */
+@media (max-width: 768px) {
+  .rules {
+    position: relative;
+    width: 100%;
+  }
 }

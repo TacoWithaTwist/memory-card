@@ -72,7 +72,17 @@ function App() {
 
   return (
     <>
-      <h1>Welcome to a Memory Card Game!</h1>
+      <h2>Welcome to a Memory Card Game!</h2>
+      <div className="rules">
+        <span className="rulesText">
+          <h4>Rules:</h4>
+          <div className="line"></div>
+          <ul>
+            <li>Click all the cards without clicking the same card twice.</li>
+            <li>Get all 10 and you win.</li>
+          </ul>
+        </span>
+      </div>
       <div className="score">
         <b>
           {gameOver ? 'Game is Over. You Lose!' : ''}
