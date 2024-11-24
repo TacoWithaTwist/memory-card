@@ -2,10 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import Card from './components/Card';
 import { WaitingStateContext } from './context/WaitingStateProvider';
 import './App.css';
+import { span } from 'motion/react-client';
 function App() {
   const [score, setScore] = useState(0);
   const [topScore, setTopScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
   const { setWaitingState } = useContext(WaitingStateContext);
   const [cardArr, setCardArr] = useState(() => {
     return Array.from({ length: 10 }).map((_, index) => ({
@@ -19,7 +21,11 @@ function App() {
       frameIndex: index,
     }));
   });
-
+  useEffect(() => {
+    if (score === 10) {
+      setGameWon(true);
+    }
+  }, [score]);
   function shuffleCards(arr) {
     const newArr = [...arr];
     for (let i = newArr.length - 1; i > 0; i--) {
@@ -68,18 +74,15 @@ function App() {
     <>
       <h1>Welcome to a Memory Card Game!</h1>
       <div className="score">
-        {gameOver ? 'Game is Over. You Lose!' : ''}
-        <br />
-        Best Score: {topScore} <br />
-        Current Score: {score}
+        <b>
+          {gameOver ? 'Game is Over. You Lose!' : ''}
+          <br />
+          Best Score: {topScore} <br />
+          Current Score: {score}
+        </b>
       </div>
-      <button
-        onClick={() => {
-          resetGame();
-        }}
-      >
-        Reset!
-      </button>
+      <br />
+
       <div className="game">
         <div className="cardsContainer">
           {cardArr.map(
@@ -115,6 +118,15 @@ function App() {
           )}
         </div>
       </div>
+      <button
+        style={{ margin: '16px' }}
+        onClick={() => {
+          resetGame();
+        }}
+      >
+        Reset!
+      </button>
+      <b>{gameWon ? 'Good Job you won!' : ''}</b>
     </>
   );
 }

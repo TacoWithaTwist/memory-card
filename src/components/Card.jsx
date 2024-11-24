@@ -26,8 +26,8 @@ export default function Card({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const spriteX = waitingState
         ? (14 % totalFrames) * spriteWidth
-        : (frameIndex % totalFrames) * spriteWidth;
-      const spriteY = 0;
+        : (frameIndex + (4 % totalFrames)) * spriteWidth;
+      const spriteY = (1 % 4) * spriteHeight;
       ctx.drawImage(
         sprite,
         spriteX,
